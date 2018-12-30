@@ -7,7 +7,7 @@ $sql = new Data();
 //$usuarios = $sql->select("select * from usuario");
 //echo json_encode($usuarios);
 
-$user = new Usuario();
+//$user = new Usuario();
 
 /* verifica se as variáveis foram alimentadas pelos getters
 echo "<pre>";
@@ -27,6 +27,22 @@ echo "</pre>";*/
 //echo json_encode($search);
 
 //autenticação
+//$user = new Usuario();
+//$user->login('gabriel', '1212');
+//echo $user;
+
+
+/*insert
+$user->setLogin('kleber');
+$user->setSenha('1232');
+
+$user->insert();
+
+echo $user;*/
+	
 $user = new Usuario();
-$user->login('gabriel', '1212');
+$user->findById(9);
+$user->update('caio','5555');
 echo $user;
+
+

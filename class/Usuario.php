@@ -3,9 +3,6 @@
 
 class Usuario{
 	
-	function __construct()	{
-		
-	}
 
 	private $id, $login, $senha, $dataCadastro;
 
@@ -52,12 +49,7 @@ class Usuario{
 
 		if (count($result) > 0) {
 			
-			$row = $result[0];
-
-			$this->setId($row['id']);
-			$this->setLogin($row['login']);
-			$this->setSenha($row['senha']);
-			$this->setDataCadastro(new DateTime($row['data_cadastro']));
+			$this->setDados($result[0]);
 
 		}
 
@@ -94,17 +86,55 @@ class Usuario{
 
 		if (count($result) > 0) {
 			
-			$row = $result[0];
-
-			$this->setId($row['id']);
-			$this->setLogin($row['login']);
-			$this->setSenha($row['senha']);
-			$this->setDataCadastro(new DateTime($row['data_cadastro']));
+			$this->setDados($result[0]);
 
 		}else{
 			throw new Exception("login ou senha inválido");		
 		}
 
+	}
+
+	public function setDados($dados){
+
+		$this->setId($dados['id']);	
+		$this->setLogin($dados['login']);
+		$this->setSenha($dados['senha']);
+		$this->setDataCadastro(new DateTime($dados['data_cadastro']));
+
+	}
+
+	public function insert(){
+		$data = new Data();
+
+		$sql = "CALL user_insert(:login, :pass)";
+		$result = $data->select($sql, array(
+			':login'=>$this->getLogin(),
+			':pass'=>$this->getSenha()
+		));
+
+		if (count($result) > 0) {
+			$this->setDados($result[0]);
+		}
+	}
+
+	public function update($login, $senha){
+
+		$this->setLogin($login);
+		$this->setSenha($senha);
+
+		$data = new Data();
+		$sql = "UPDATE usuario set login = :login, senha = :senha where id = :id";
+
+		$data->query($sql, array(
+			':login'=>$this->getLogin(),
+			':senha'=>$this->getSenha(),
+			':id'=>$this->getId()
+		));
+	}
+
+	public function __construct($login ='', $senha = ''){
+		$this->setLogin($login);
+		$this->setSenha($senha);
 	}
 
 	public function __toString(){
