@@ -6,17 +6,18 @@
 
 	function __construct(){
 		
-		define('HOST', "localhost");
+		/*define('HOST', "localhost");
 		define('BASE', "udemy");
 		define('USER', "root");
 		define('PASS', "");
-
-		$this->con = new PDO("mysql:host=" . HOST. ";dbname=". BASE, USER, PASS);
+		*/
+		//$this->con = new PDO("mysql:host=" . HOST. ";dbname=". BASE, USER, PASS);
+		$this->con = new PDO("mysql:host=localhost;dbname=udemy", "root", "");
 	}
 
 	public function setParams($stm, $params = array()){
 		foreach ($params as $key => $value) {
-			$this->setParam($key, $value);
+			$this->setParam($stm, $key, $value);
 		}
 	}
 
