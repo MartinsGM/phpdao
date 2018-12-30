@@ -44,8 +44,9 @@ class Usuario{
 	public function findById($id){
 
 		$data = new Data();
+		$sql = "SELECT * from usuario where id = :id";
 
-		$result = $data->select("select * from usuario where id = :id", array(
+		$result = $data->select($sql, array(
 			":id"=>$id
 		));
 
@@ -58,6 +59,50 @@ class Usuario{
 			$this->setSenha($row['senha']);
 			$this->setDataCadastro(new DateTime($row['data_cadastro']));
 
+		}
+
+	}
+
+	public static function findAll(){
+		
+		$data = new Data();
+
+		$sql = "SELECT * from usuario";
+		return $data->select($sql);
+	}
+
+	public static function search($login){
+
+		$data = new Data();
+		$sql = "SELECT * from usuario where login like :search";
+
+		return $data->select($sql, array(
+			':search'=>'%' . $login . '%'
+		));
+
+	}
+
+	public function login($login, $pass){
+
+		$data = new Data();
+		$sql = "SELECT * from usuario where login = :login and senha = :pass";
+
+		$result = $data->select($sql, array(
+			":login"=>$login,
+			":pass"=>$pass
+		));
+
+		if (count($result) > 0) {
+			
+			$row = $result[0];
+
+			$this->setId($row['id']);
+			$this->setLogin($row['login']);
+			$this->setSenha($row['senha']);
+			$this->setDataCadastro(new DateTime($row['data_cadastro']));
+
+		}else{
+			throw new Exception("login ou senha inválido");		
 		}
 
 	}

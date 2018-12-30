@@ -9,13 +9,24 @@ $sql = new Data();
 
 $user = new Usuario();
 
-
-
-$user->findById(6);
-
-/*echo "<pre>";
+/* verifica se as variáveis foram alimentadas pelos getters
+echo "<pre>";
 print_r($user);
 echo "</pre>";*/
 
+//retorna usuário pelo id
+//$user->findById(6);
+//echo $user->__toString();
 
-echo $user->__toString();
+//retorna lista de todos os usuários
+//$users = Usuario::findAll();
+//echo json_encode($users);
+
+//select com like
+//$search = Usuario::search('a');
+//echo json_encode($search);
+
+//autenticação
+$user = new Usuario();
+$user->login('gabriel', '1212');
+echo $user;
