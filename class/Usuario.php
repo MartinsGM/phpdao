@@ -132,6 +132,21 @@ class Usuario{
 		));
 	}
 
+	public function delete(){
+		
+		$data = new Data();
+		$sql = "DELETE from usuario where id = :id";
+
+		$data->query($sql, array(
+			':id'=>$this->getId()
+		));
+
+		$this->setId(null);
+		$this->setLogin(null);
+		$this->setSenha(null);
+		$this->setDataCadastro(null);
+	}
+
 	public function __construct($login ='', $senha = ''){
 		$this->setLogin($login);
 		$this->setSenha($senha);

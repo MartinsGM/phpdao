@@ -37,12 +37,21 @@ $user->setLogin('kleber');
 $user->setSenha('1232');
 
 $user->insert();
-
 echo $user;*/
-	
+
+/*	update
 $user = new Usuario();
 $user->findById(9);
 $user->update('caio','5555');
 echo $user;
+*/
 
+$user = new Usuario();
+$user->findById(9);
+
+
+
+$user->delete();
+
+echo $user;
 
